@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>CineFind — Movie Search</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true">▶</span>
+        <div>
+          <h1>CineFind</h1>
+          <p>Search The Movie Database</p>
+        </div>
+      </div>
+      <form class="search-form" id="search-form" role="search">
+        <label class="sr-only" for="query">Search movies</label>
+        <input
+          id="query"
+          name="query"
+          type="search"
+          placeholder="Search movies — try Jack"
+          autocomplete="off"
+          required
+        />
+        <button type="submit">Search</button>
+      </form>
+      <button type="button" class="ghost-btn" id="api-key-btn" title="Set TMDB API key">
+        API key
+      </button>
+    </header>
+
+    <section class="toolbar">
+      <p class="status" id="status">Popular movies</p>
+      <div class="controls">
+        <label>
+          Sort
+          <select id="sort">
+            <option value="popularity">Default (API order)</option>
+            <option value="date-desc">Release date (newest)</option>
+            <option value="date-asc">Release date (oldest)</option>
+            <option value="rating-desc">Rating (high → low)</option>
+            <option value="rating-asc">Rating (low → high)</option>
+          </select>
+        </label>
+        <label class="rating-filter">
+          Min rating
+          <input id="min-rating" type="range" min="0" max="10" step="0.5" value="0" />
+          <span id="min-rating-value">0+</span>
+        </label>
+      </div>
+    </section>
+
+    <main>
+      <div id="grid" class="grid" aria-live="polite"></div>
+      <p id="empty" class="empty hidden">No movies match this search and filter.</p>
+      <nav class="pagination" id="pagination" hidden>
+        <button type="button" id="prev-page">Previous</button>
+        <span id="page-label">Page 1</span>
+        <button type="button" id="next-page">Next</button>
+      </nav>
+    </main>
+
+    <dialog id="details-dialog">
+      <article id="details-body"></article>
+      <form method="dialog">
+        <button type="submit">Close</button>
+      </form>
+    </dialog>
+
+    <dialog id="key-dialog">
+      <h2>TMDB API key</h2>
+      <p>
+        Get a free key from
+        <a href="https://www.themoviedb.org/settings/api" target="_blank" rel="noreferrer"
+          >themoviedb.org/settings/api</a
+        >
+        and paste it below. It is stored only in this browser.
+      </p>
+      <label>
+        API key
+        <input id="api-key-input" type="password" autocomplete="off" />
+      </label>
+      <menu>
+        <button type="button" id="save-key">Save</button>
+        <button type="button" id="cancel-key">Cancel</button>
+      </menu>
+    </dialog>
+
+    <script src="app.js"></script>
+  </body>
+</html>
